@@ -41,6 +41,11 @@ export class HomeComponent implements OnInit {
     this.router.navigate([`/save`], { queryParams: { loggedUserId: this.loggedUserId } })
   }
 
+  logOut() {
+    this.loggedUserId = '';
+    this.router.navigate([`/login`])
+  }
+
   removeUser(id: string | undefined) {
     if(!id || !this.loggedUserId) return;
     this.UserService.removeUser(id).subscribe(
