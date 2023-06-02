@@ -39,4 +39,8 @@ export class UserService {
     return this.httpClient.put(this.apiRoute, user);
   }
 
+  login(email: string, password: string) {
+    return this.httpClient.post(`${this.apiRoute}/login`, { email, password })
+  }
+
 }
