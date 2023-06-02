@@ -1,1 +1,30 @@
-<p>save-user works!</p>
+<form class="user-form">
+  <mat-form-field class="user-full-width">
+    <mat-label>Name</mat-label>
+    <input [(ngModel)]="user.name" name="name" matInput placeholder="Your name here...">
+  </mat-form-field>
+
+  <mat-form-field class="user-full-width">
+    <mat-label>Surname</mat-label>
+    <input [(ngModel)]="user.surname" name="surname" matInput placeholder="Your surname here...">
+  </mat-form-field>
+
+  <mat-form-field class="user-full-width">
+    <mat-label>Username</mat-label>
+    <input [(ngModel)]="user.username" name="username" matInput placeholder="Your username here...">
+  </mat-form-field>
+
+  <mat-form-field class="user-full-width">
+    <mat-label>E-mail</mat-label>
+    <input [(ngModel)]="user.email" name="email" matInput type="email" placeholder="Your e-mail here...">
+  </mat-form-field>
+
+  <mat-form-field class="user-full-width" *ngIf="!user.id">
+    <mat-label>Password</mat-label>
+    <input [(ngModel)]="user.password" name="password" matInput type="password" placeholder="Your password here...">
+  </mat-form-field>
+
+  <button (click)="save()">
+    SAVE
+  </button>
+</form>

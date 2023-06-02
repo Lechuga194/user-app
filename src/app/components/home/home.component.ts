@@ -21,7 +21,6 @@ export class HomeComponent implements OnInit {
   getAllUsers() {
     this.UserService.getAllUsers().subscribe(
       res => {
-        console.log(res)
         this.usersList = res as User[];
       },error => {
         console.log(error)
@@ -36,7 +35,7 @@ export class HomeComponent implements OnInit {
   removeUser(id: string | undefined) {
     if(!id) return;
     this.UserService.removeUser(id).subscribe(
-      res => {
+      _res => {
         this.getAllUsers();
       },
       error => {
