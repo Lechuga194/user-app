@@ -6,9 +6,9 @@ import {SaveUserComponent} from "./components/save-user/save-user.component";
 
 const routes: Routes = [
   {path: '', redirectTo:'/login', pathMatch:'full'},
-  {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: SaveUserComponent},
+  {path: 'home', component: HomeComponent},
   {path: 'save', component: SaveUserComponent},
   {path: 'save/:id', component: SaveUserComponent}
 ];

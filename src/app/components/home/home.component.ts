@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService, User} from "../../services/user.service";
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -9,11 +9,23 @@ import {Router} from "@angular/router";
 })
 export class HomeComponent implements OnInit {
 
+  loggedUserId = '';
   usersList: User[] = [];
-  constructor(private UserService: UserService, private router: Router) {}
+  constructor(
+    private UserService: UserService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.getAllUsers();
+    this.activatedRoute.queryParams.subscribe((params) => {
+      this.loggedUserId = params['loggedUserId'];
+      if(this.loggedUserId) {
+        this.getAllUsers();
+      } else {
+        this.router.navigate([`/register`])
+      }
+    })
   }
 
   getAllUsers() {
@@ -27,11 +39,11 @@ export class HomeComponent implements OnInit {
   }
 
   addUser() {
-    this.router.navigate([`/save`])
+    this.router.navigate([`/save`], { queryParams: { loggedUserId: this.loggedUserId } })
   }
 
   removeUser(id: string | undefined) {
-    if(!id) return;
+    if(!id || !this.loggedUserId) return;
     this.UserService.removeUser(id).subscribe(
       _res => {
         this.getAllUsers();
@@ -44,7 +56,7 @@ export class HomeComponent implements OnInit {
 
   updateUser(id: string | undefined) {
     if(!id) return;
-    this.router.navigate([`/save`], { queryParams: { id } })
+    this.router.navigate(['/save'], { queryParams: { id, loggedUserId: this.loggedUserId } })
   }
 
 }
