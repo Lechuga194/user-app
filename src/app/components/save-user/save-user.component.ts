@@ -25,12 +25,16 @@ export class SaveUserComponent implements OnInit{
     private activatedRoute: ActivatedRoute
   ) {}
 
+  /**
+   * On load, we check if we are logged and if the request params has the id of a user (idUser)
+   * If idUser exists then we get the info of that user and fill the form with it
+   */
   async ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params) => {
-      let idParam = params['id'];
+      let idUser = params['id'];
       this.loggedUserId = params['loggedUserId'];
-      if(idParam && this.loggedUserId) {
-        this.UserService.getUser(idParam).subscribe(res => {
+      if(idUser && this.loggedUserId) {
+        this.UserService.getUser(idUser).subscribe(res => {
           this.user = res as User
         })
 
@@ -40,10 +44,10 @@ export class SaveUserComponent implements OnInit{
 
   /**
    * If we are logged then we update or create a new user, and then we go to the home view
-   * If we are not logged we can create the user and then be redirected to log in
+   * If we are not logged we can create the user and then be redirected to log in.
+   * In this simple login system we are logged if loggedUserId has a value
    */
   save() {
-    //If we are logged
     if(this.loggedUserId) {
       if(this.user.id) {
         this.UserService.updateUser(this.user).subscribe();

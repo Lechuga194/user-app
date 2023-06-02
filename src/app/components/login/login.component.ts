@@ -17,13 +17,16 @@ export class LoginComponent {
     private router: Router
   ) {}
 
+  /**
+   * this checks if the email and password are valid for a user
+   * the email is stored in plain text and the password is hashed using bcrypt
+   * If the credentials are valid we go home (list of all users)
+   */
   login() {
     this.UserService.login(this.email, this.password).subscribe(
       res => {
         const user: User = res as User;
         this.router.navigate(['/home'], { queryParams: { loggedUserId: user.id } })
-      }, _error => {
-        console.log('not logged')
       }
     );
   }
