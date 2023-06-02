@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 
 export interface User {
-  id?: string;
+  id?: number;
   name: string;
   surname: string;
   username: string;
@@ -31,7 +31,7 @@ export class UserService {
     return this.httpClient.post(this.apiRoute, user);
   }
 
-  removeUser(id: string) {
+  removeUser(id: number) {
     return this.httpClient.delete(`${this.apiRoute}/${id}`)
   }
 

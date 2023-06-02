@@ -8,7 +8,7 @@ import {Router, ActivatedRoute} from "@angular/router";
 })
 export class HomeComponent implements OnInit {
 
-  loggedUserId = '';
+  loggedUserId = 0;
   usersList: User[] = [];
   constructor(
     private UserService: UserService,
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
    */
   ngOnInit() {
     this.activatedRoute.queryParams.subscribe((params) => {
-      this.loggedUserId = params['loggedUserId'];
+      this.loggedUserId = Number(params['loggedUserId']);
       if(this.loggedUserId) {
         this.getAllUsers();
       } else {
@@ -47,7 +47,7 @@ export class HomeComponent implements OnInit {
   }
 
   logOut() {
-    this.loggedUserId = '';
+    this.loggedUserId = 0;
     this.router.navigate([`/login`])
   }
 
@@ -56,7 +56,7 @@ export class HomeComponent implements OnInit {
    * In this simple login system we are logged if loggedUserId has a value
    * @param id
    */
-  removeUser(id: string | undefined) {
+  removeUser(id: number | undefined) {
     if(!id || !this.loggedUserId) return;
     this.UserService.removeUser(id).subscribe(
       _res => {
@@ -68,7 +68,7 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  updateUser(id: string | undefined) {
+  updateUser(id: number | undefined) {
     if(!id) return;
     this.router.navigate(['/save'], { queryParams: { id, loggedUserId: this.loggedUserId } })
   }

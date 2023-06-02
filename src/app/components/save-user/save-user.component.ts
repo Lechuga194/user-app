@@ -9,9 +9,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 })
 export class SaveUserComponent implements OnInit{
 
-  loggedUserId = '';
+  loggedUserId = 0;
   user: User = {
-    id: '',
+    id: 0,
     name: '',
     surname: '',
     email: '',
