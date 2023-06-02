@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {UserService} from "../../services/user.service";
+import {UserService, User} from "../../services/user.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,9 @@ import {UserService} from "../../services/user.service";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  constructor(private UserService: UserService) {
+
+  usersList: User[] = [];
+  constructor(private UserService: UserService, private router: Router) {
     this.getAllUsers();
   }
 
@@ -19,10 +22,33 @@ export class HomeComponent implements OnInit {
     this.UserService.getAllUsers().subscribe(
       res => {
         console.log(res)
+        this.usersList = res as User[];
       },error => {
         console.log(error)
       }
     )
   }
+
+  addUser() {
+    this.router.navigate([`/save`])
+  }
+
+  removeUser(id: string | undefined) {
+    if(!id) return;
+    this.UserService.removeUser(id).subscribe(
+      res => {
+        this.getAllUsers();
+      },
+      error => {
+        console.log(error)
+      }
+    );
+  }
+
+  updateUser(id: string | undefined) {
+    if(!id) return;
+    this.router.navigate([`/save`], { queryParams: { id } })
+  }
+
 
 }

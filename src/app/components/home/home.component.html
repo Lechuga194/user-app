@@ -1,1 +1,13 @@
-<p>home works!</p>
+<button mat-button color="accent" (click)="addUser()" >ADD USER</button>
+<mat-list-item *ngFor="let user of usersList">
+  <mat-card style="background-color: #c0e0fa; margin: 10px">
+    <mat-card-header>
+      <mat-card-title>{{user.name}} {{user.surname}}</mat-card-title>
+      <mat-card-subtitle>{{user.username}} | {{user.email}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-button color="primary" (click)="updateUser(user.id)" >UPDATE</button>
+      <button mat-button color="warn" (click)="removeUser(user.id)">DELETE</button>
+    </mat-card-actions>
+  </mat-card>
+</mat-list-item>
