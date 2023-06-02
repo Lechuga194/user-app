@@ -10,12 +10,10 @@ import {Router} from "@angular/router";
 export class HomeComponent implements OnInit {
 
   usersList: User[] = [];
-  constructor(private UserService: UserService, private router: Router) {
-    this.getAllUsers();
-  }
+  constructor(private UserService: UserService, private router: Router) {}
 
   ngOnInit() {
-
+    this.getAllUsers();
   }
 
   getAllUsers() {
@@ -48,6 +46,5 @@ export class HomeComponent implements OnInit {
     if(!id) return;
     this.router.navigate([`/save`], { queryParams: { id } })
   }
-
 
 }
